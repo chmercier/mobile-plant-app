@@ -1,50 +1,97 @@
-# Welcome to your Expo app 👋
+# Mobile Plant App — Setup Guide
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple mockup mobile app built with React Native + Expo. This guide walks your teammates through setting up and running the project on their computer and phone.
 
-## Get started
+## 1. Install Prerequisites
 
-1. Install dependencies
+Make sure the following are installed:
 
-   ```bash
-   npm install
-   ```
+- **Node.js (LTS version)**: https://nodejs.org/en/download/prebuilt-installer  
+  → During installation, check 'Add to PATH'
 
-2. Start the app
+- **Git**: https://git-scm.com/downloads
 
-   ```bash
-   npx expo start
-   ```
+- **Visual Studio Code**: https://code.visualstudio.com/
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+After installing, verify installation by running these in your terminal:
 ```bash
-npm run reset-project
+node -v
+npm -v
+npx -v
+git --version
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 2. Clone the Repository
 
-## Learn more
+In your terminal or VS Code terminal:
+```bash
+git clone https://github.com/chmercier/mobile-plant-app.git
+cd mobile-plant-app
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 3. Install Dependencies
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Inside the project folder, run:
+```bash
+npm install
+```
 
-## Join the community
+This will install all required dependencies for the app.
 
-Join our community of developers creating universal apps.
+## 4. Install Expo Go on Your Phone
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Download Expo Go to preview the app on your phone:
+
+- **iOS**: https://apps.apple.com/app/expo-go/id982107779
+
+- **Android**: https://play.google.com/store/apps/details?id=host.exp.exponent
+
+## 5. Run the App
+
+In VS Code (inside the project folder), run:
+```bash
+npx expo start
+```
+
+You'll see a QR code in your terminal or browser.
+
+1. Open Expo Go on your phone
+2. Tap 'Scan QR Code'
+3. Scan the code from your screen to open the app.
+
+## 6. Making Changes
+
+Create a new branch for your work:
+```bash
+git checkout -b your-branch-name
+```
+
+Make edits in VS Code, save, and test using:
+```bash
+npx expo start
+```
+
+Then commit and push your work:
+```bash
+git add .
+git commit -m "Describe your change"
+git push origin your-branch-name
+```
+
+## 7. Collaborating with the Team
+
+Always pull the latest changes before starting new work:
+```bash
+git pull origin main
+```
+
+When ready, open a Pull Request on GitHub to merge your branch into main.
+
+## 8. Common Issues
+
+❌ **npm or npx not recognized:**  
+→ Close and reopen VS Code, or restart your computer.
+
+❌ **Expo doesn't load on phone:**  
+→ Ensure your phone and laptop are on the same Wi-Fi network.  
+→ If using campus Wi-Fi, use a personal hotspot instead.
