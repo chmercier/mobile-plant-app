@@ -7,14 +7,11 @@ import colors from "../styles/colors";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Header title="Home" />
+      <Header title="Tasks" />
       <View style={styles.content}>
-        <Text style={typography.header}>
-          {" "}
-          Welcome to the Mobile Plant App!{" "}
-        </Text>
+        <Text style={typography.header}> Tasks </Text>
         <Text style={typography.body}>
-          This is a simple app to help you manage your plants on the go.
+          This is where you can manage your plant care tasks.
         </Text>
       </View>
     </View>

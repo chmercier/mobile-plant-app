@@ -4,21 +4,18 @@ import Header from "../components/Header";
 import typography from "../styles/typography";
 import colors from "../styles/colors";
 
-export default function Index() {
-  return (
-    <View style={styles.container}>
-      <Header title="Home" />
-      <View style={styles.content}>
-        <Text style={typography.header}>
-          {" "}
-          Welcome to the Mobile Plant App!{" "}
-        </Text>
-        <Text style={typography.body}>
-          This is a simple app to help you manage your plants on the go.
-        </Text>
-      </View>
-    </View>
-  );
+export default function Plants() {
+    return (
+        <View style={styles.container}>
+            <Header title="Plants" />
+            <View style={styles.content}>
+                <Text style={typography.header}> Your Plant Collection </Text>
+                <Text style={typography.body}>
+                    Here you can view and manage all your plants.
+                </Text>
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
