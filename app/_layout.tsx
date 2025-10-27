@@ -1,24 +1,59 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import React from "react";
+import { Tabs } from "expo-router";
+import { useFonts } from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
+import fonts from "../styles/fonts";
+import colors from "../styles/colors";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+export default function Layout() {
+  // Load fonts once globally
+  const [fontsLoaded] = useFonts({
+    [fonts.regular]: require("../assets/fonts/LiberationSans-Regular.ttf"),
+    [fonts.bold]: require("../assets/fonts/LiberationSans-Bold.ttf"),
+  });
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  // While fonts are loading, show nothing
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.backgroundDark,
+        tabBarInactiveTintColor: colors.accent,
+        tabBarStyle: { backgroundColor: colors.surface },
+        tabBarItemStyle: { justifyContent: "center" },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="plants"
+        options={{
+          title: "Plants",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="leaf" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tasks"
+        options={{
+          title: "Tasks",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="checkmark-done" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
