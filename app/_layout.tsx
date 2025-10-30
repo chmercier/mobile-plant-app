@@ -1,22 +1,9 @@
-import React from "react";
-import { Tabs } from "expo-router";
-import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
-import fonts from "../styles/fonts";
+import { Tabs } from "expo-router";
+import React from "react";
 import colors from "../styles/colors";
 
 export default function Layout() {
-  // Load fonts once globally
-  const [fontsLoaded] = useFonts({
-    [fonts.regular]: require("../assets/fonts/LiberationSans-Regular.ttf"),
-    [fonts.bold]: require("../assets/fonts/LiberationSans-Bold.ttf"),
-  });
-
-  // While fonts are loading, show nothing
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <Tabs
       screenOptions={{
@@ -27,6 +14,7 @@ export default function Layout() {
         tabBarItemStyle: { justifyContent: "center" },
       }}
     >
+      {/* VISIBLE TABS */}
       <Tabs.Screen
         name="index"
         options={{
@@ -54,6 +42,12 @@ export default function Layout() {
           ),
         }}
       />
+
+      {/* HIDDEN ROUTES (accessible via router.push but not shown as tabs on the bottom) */}
+      <Tabs.Screen name="beginner" options={{ href: null }} />
+      <Tabs.Screen name="sprouts"  options={{ href: null }} />
+      <Tabs.Screen name="advanced" options={{ href: null }} />
+
     </Tabs>
   );
 }
