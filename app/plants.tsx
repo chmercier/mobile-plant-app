@@ -2,9 +2,12 @@ import {
   CameraView,
   useCameraPermissions,
   type CameraCapturedPicture,
-} from "expo-camera/";
+} from "expo-camera";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   FlatList,
   Image,
   Modal,
@@ -18,9 +21,12 @@ import Header from "../components/Header";
 import colors from "../styles/colors";
 import typography from "../styles/typography";
 
-type Plant = {
-  uri: string;
-  name: string;
+export type Plant = {
+  uri: string;              // user photo
+  name: string;             // common name
+  watering?: string;
+  sunlight?: string[];
+  referenceImage?: string;  // Perenual reference image
 };
 
 export default function Plants() {
@@ -29,21 +35,20 @@ export default function Plants() {
   const [photo, setPhoto] = useState<string | null>(null);
   const [plantName, setPlantName] = useState("");
   const [nameModalVisible, setNameModalVisible] = useState(false);
-
-  // ✅ Expo 51+ permission hook
+  const [loading, setLoading] = useState(false);
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView | null>(null);
+  const router = useRouter();
+  const API_KEY = "sk-AVDv6902471a8542913194";
 
-  // Handle permissions
   useEffect(() => {
-    if (!permission) {
+    if (permission?.status !== "granted") {
       requestPermission();
     }
-  }, [permission]);
+  }, []);
 
   if (!permission) return <View />;
-
-  if (!permission.granted) {
+  if (!permission.granted)
     return (
       <View style={styles.centered}>
         <Text>No access to camera</Text>
@@ -52,7 +57,6 @@ export default function Plants() {
         </TouchableOpacity>
       </View>
     );
-  }
 
   const takePicture = async () => {
     if (cameraRef.current) {
@@ -70,9 +74,53 @@ export default function Plants() {
     }
   };
 
-  const savePlant = () => {
+const fetchPlantData = async (name: string) => {
+  try {
+    setLoading(true);
+
+    const searchResponse = await fetch(
+      `https://perenual.com/api/v2/species-list?key=${API_KEY}&q=${encodeURIComponent(name)}`
+    );
+    const searchData = await searchResponse.json();
+
+    if (!searchData.data || searchData.data.length === 0) {
+      setLoading(false);
+      Alert.alert("No data found", "Couldn't find this plant in Perenual.");
+      return null;
+    }
+
+    const plantId = searchData.data[0].id;
+
+    const detailsResponse = await fetch(
+      `https://perenual.com/api/v2/species/details/${plantId}?key=${API_KEY}`
+    );
+    const detailsData = await detailsResponse.json();
+    setLoading(false);
+
+    return {
+      watering: detailsData.watering ?? "Unknown",
+      sunlight: detailsData.sunlight ?? ["Unknown"],
+      referenceImage: detailsData.default_image?.medium_url ?? null,
+    };
+  } catch (err) {
+    console.error("Error fetching plant data:", err);
+    setLoading(false);
+    Alert.alert("Error", "Failed to fetch plant data.");
+    return null;
+  }
+};
+
+
+
+  const savePlant = async () => {
     if (photo && plantName.trim()) {
-      setPlants((prev) => [...prev, { uri: photo, name: plantName.trim() }]);
+      const details = await fetchPlantData(plantName.trim());
+      const newPlant: Plant = {
+        uri: photo,
+        name: plantName.trim(),
+        ...details,
+      };
+      setPlants((prev) => [...prev, newPlant]);
       setPhoto(null);
       setPlantName("");
       setNameModalVisible(false);
@@ -92,10 +140,18 @@ export default function Plants() {
           numColumns={2}
           contentContainerStyle={styles.gallery}
           renderItem={({ item }) => (
-            <View style={styles.plantCard}>
+            <TouchableOpacity
+              style={styles.plantCard}
+              onPress={() =>
+                router.push({
+                  pathname: "/plantsdetails",
+                  params: { plant: JSON.stringify(item) },
+                })
+              }
+            >
               <Image source={{ uri: item.uri }} style={styles.plantImage} />
               <Text style={styles.plantName}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
           )}
           ListEmptyComponent={
             <Text style={{ marginTop: 20, color: colors.textSecondary }}>
@@ -108,17 +164,15 @@ export default function Plants() {
           style={styles.addButton}
           onPress={() => setCameraOpen(true)}
         >
-          <Text style={styles.addButtonText}>+ Add Plant</Text>
+          <Text style={styles.addButtonText}>
+            {loading ? "Loading..." : "+ Add Plant"}
+          </Text>
         </TouchableOpacity>
       </View>
 
       {/* Camera Modal */}
       <Modal visible={cameraOpen} animationType="slide">
-        <CameraView
-          style={styles.camera}
-          ref={cameraRef}
-          facing="back" // ✅ replaces CameraType.back
-        />
+        <CameraView style={styles.camera} ref={cameraRef} facing="back" />
         <View style={styles.cameraButtons}>
           <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
             <Text style={styles.captureText}>📸 Take Photo</Text>
@@ -144,7 +198,11 @@ export default function Plants() {
               onChangeText={setPlantName}
             />
             <TouchableOpacity style={styles.saveButton} onPress={savePlant}>
-              <Text style={styles.saveText}>Save</Text>
+              {loading ? (
+                <ActivityIndicator color={colors.textOnDark} />
+              ) : (
+                <Text style={styles.saveText}>Save</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -154,33 +212,12 @@ export default function Plants() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundLight,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-    alignItems: "center",
-  },
-  gallery: {
-    marginTop: 20,
-    alignItems: "center",
-  },
-  plantCard: {
-    margin: 10,
-    alignItems: "center",
-  },
-  plantImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-  },
+  container: { flex: 1, backgroundColor: colors.backgroundLight },
+  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  content: { flex: 1, padding: 20, alignItems: "center" },
+  gallery: { marginTop: 20, alignItems: "center" },
+  plantCard: { margin: 10, alignItems: "center" },
+  plantImage: { width: 150, height: 150, borderRadius: 10 },
   plantName: {
     marginTop: 5,
     fontSize: 16,
@@ -193,13 +230,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
   },
-  addButtonText: {
-    color: colors.textOnDark,
-    fontSize: 18,
-  },
-  camera: {
-    flex: 1,
-  },
+  addButtonText: { color: colors.textOnDark, fontSize: 18 },
+  camera: { flex: 1 },
   cameraButtons: {
     position: "absolute",
     bottom: 30,
@@ -217,10 +249,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  captureText: {
-    fontSize: 16,
-    color: colors.textPrimary,
-  },
+  captureText: { fontSize: 16, color: colors.textPrimary },
   nameModal: {
     flex: 1,
     justifyContent: "center",
@@ -252,8 +281,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 8,
   },
-  saveText: {
-    color: colors.textOnDark,
-    fontSize: 18,
-  },
+  saveText: { color: colors.textOnDark, fontSize: 18 },
 });
