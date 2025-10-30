@@ -14,7 +14,6 @@ export default function Layout() {
         tabBarItemStyle: { justifyContent: "center" },
       }}
     >
-      {/* VISIBLE TABS */}
       <Tabs.Screen
         name="index"
         options={{
@@ -42,12 +41,10 @@ export default function Layout() {
           ),
         }}
       />
-
-      {/* HIDDEN ROUTES (accessible via router.push but not shown as tabs on the bottom) */}
       <Tabs.Screen name="beginner" options={{ href: null }} />
-      <Tabs.Screen name="sprouts"  options={{ href: null }} />
+      <Tabs.Screen name="sprouts" options={{ href: null }} />
       <Tabs.Screen name="advanced" options={{ href: null }} />
-
+      <Tabs.Screen name="plantsdetails" options={{ href: null }} />
     </Tabs>
   );
 }
