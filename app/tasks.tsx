@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   Alert,
@@ -362,6 +363,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: false }} />
       <Header title="Tasks" />
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {tasks.length === 0 ? (
@@ -429,6 +431,7 @@ export default function Index() {
         visible={showAddModal}
         animationType="slide"
         transparent={false}
+        presentationStyle="fullScreen"
         onRequestClose={() => {
           setShowAddModal(false);
           setEditingTaskId(null);
@@ -843,33 +846,4 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
   },
-  modalButtons: {
-    flexDirection: "row",
-    gap: 12,
-    marginTop: 20,
-  },
-  button: {
-    flex: 1,
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-    minHeight: 48,
-    justifyContent: "center",
-  },
-  cancelButton: {
-    backgroundColor: "#f0f0f0",
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    color: "#666",
-    fontWeight: "600",
-  },
-  saveButton: {
-    backgroundColor: colors.backgroundDark,
-  },
-  saveButtonText: {
-    fontSize: 16,
-    color: "#fff",
-    fontWeight: "600",
-  }
 });

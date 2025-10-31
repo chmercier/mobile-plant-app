@@ -1,8 +1,10 @@
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import colors from "../styles/colors";
 import type { Plant } from "./plants";
+
+const { width, height } = Dimensions.get("window");
 
 export default function PlantsDetails() {
   const params = useLocalSearchParams();
@@ -35,17 +37,24 @@ export default function PlantsDetails() {
     : parsedPlant.sunlight || "Unknown";
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      <Text style={styles.title}>  
+        </Text>
       <Text style={styles.title}>{parsedPlant.name}</Text>
 
-      {/* User photo */}
-      <Image source={{ uri: parsedPlant.uri }} style={styles.image} />
 
-      {/* Reference photo from Perenual */}
+      {/* User photo */}
+      <Image
+        source={{ uri: parsedPlant.uri }}
+        style={styles.mainImage}
+        resizeMode="cover"
+      />
+
+      {/* API reference image */}
       {parsedPlant.referenceImage && (
         <Image
           source={{ uri: parsedPlant.referenceImage }}
-          style={styles.image}
+          style={styles.apiImage}
           resizeMode="cover"
         />
       )}
@@ -65,32 +74,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.backgroundLight,
-    padding: 20,
   },
   title: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: "bold",
     color: colors.textPrimary,
-    marginBottom: 10,
     textAlign: "center",
+    marginVertical: 15,
   },
-  image: {
-    width: "100%",
-    height: 250,
-    borderRadius: 12,
+  mainImage: {
+    width: width * 0.92, // leaves border on sides
+    height: height * 0.55,
+    borderRadius: 15,
+    alignSelf: "center",
+    marginVertical: 10,
+  },
+  apiImage: {
+    width: width * 0.92,
+    height: height * 0.45,
+    borderRadius: 15,
+    alignSelf: "center",
     marginVertical: 10,
   },
   infoBox: {
-    marginTop: 15,
     backgroundColor: colors.surface,
-    padding: 15,
-    borderRadius: 10,
+    padding: 18,
+    borderRadius: 12,
+    marginHorizontal: 20,
+    marginTop: 15,
   },
   label: {
     fontSize: 18,
     fontWeight: "600",
     color: colors.textOnDark,
-    marginTop: 5,
+    marginTop: 8,
   },
   value: {
     fontSize: 16,

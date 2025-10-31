@@ -1,16 +1,19 @@
 import { Stack } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Header from "../components/Header";
 import colors from "../styles/colors";
+import fonts from "../styles/fonts";
 import typography from "../styles/typography";
 
 export default function AdvancedTips() {
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: "Advanced Tips for Plant-keeping", headerShown: true }} />
+      <Stack.Screen options={{ title: "Advanced Tips for Plant-keeping", headerShown: false }} />
+      <Header title="Advanced Tips"/>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Advanced Tips for Plant-keeping</Text>
 
+        <Text style={styles.title}>Light Management</Text>
         <Text style={styles.body}>
           Advanced plant-keeping starts with treating light as a measurable resource rather than a
           guess. Instead of “bright” or “low” light, think in lux or PPFD. A bright windowsill can
@@ -22,6 +25,7 @@ export default function AdvancedTips() {
           improve outcomes by keeping leaves dust-free, rotating pots weekly for even growth, and
           using sheer curtains to soften harsh afternoon sun.
         </Text>
+        <Text style={styles.title}>Watering Techniques</Text>
 
         <Text style={styles.body}>
           Watering is less about a calendar and more about substrate aeration and vapor pressure
@@ -36,6 +40,8 @@ export default function AdvancedTips() {
           roots, but flush from the top monthly to prevent salt buildup.
         </Text>
 
+        <Text style={styles.title}>Soil Quality</Text>
+
         <Text style={styles.body}>
           Soil is a design choice, not a bag. Build mixes around your plant’s roots and your
           environment. For aroids (monstera, philodendron), try a chunky, airy base (bark,
@@ -46,6 +52,7 @@ export default function AdvancedTips() {
           circling roots, and reset the crown height to avoid stem rot. Refresh the top inch of mix
           between repots to keep nutrients and structure lively.
         </Text>
+        <Text style={styles.title}>Plant Nutrition</Text>
 
         <Text style={styles.body}>
           Nutrition is best thought of as a steady drip, not feast-and-famine. A balanced fertilizer
@@ -57,6 +64,7 @@ export default function AdvancedTips() {
           overwatering rather than nutrient lack. Water quality matters too: if your tap is very
           hard, consider filtered or rainwater to reduce leaf spotting and salt accumulation.
         </Text>
+        <Text style={styles.title}>Pests</Text>
 
         <Text style={styles.body}>
           Integrated pest management (IPM) beats emergency sprays. Inspect weekly—flip leaves, check
@@ -68,6 +76,7 @@ export default function AdvancedTips() {
           transfer. For fungus gnats, let the top inch dry between waterings, use sticky traps for
           monitoring, and consider a biological control like Bacillus thuringiensis israelensis.
         </Text>
+        <Text style={styles.title}>Physical Structure</Text>
 
         <Text style={styles.body}>
           Structure and growth control make plants look “expert.” Stake climbing aroids early and
@@ -79,6 +88,7 @@ export default function AdvancedTips() {
           soil once roots are robust. Label cuttings with date and parent—small records prevent big
           mysteries later.
         </Text>
+        <Text style={styles.title}>Plant Technology</Text>
 
         <Text style={styles.body}>
           Finally, build gentle automation and habits. A smart plug can run a humidifier on a
@@ -93,6 +103,8 @@ export default function AdvancedTips() {
         </Text>
 
         <Text style={styles.body}>
+        </Text>
+        <Text style={styles.body}>
             We know this is a lot to take in, don't be alarmed. You don't need to master absolutely everything in this section. BUT! - mastering even a few of these advanced techniques will significantly enhance your plant-keeping skills/knowledge and lead to healthier, happier plants.
             Take your time and enjoy the journey!
 
@@ -105,6 +117,6 @@ export default function AdvancedTips() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.backgroundLight },
   content: { padding: 20, gap: 10 },
-  title: { ...typography.header, fontSize: 26 },
+  title: { ...typography.header, fontSize: 20, fontFamily: fonts.bold, },
   body: { ...typography.body, color: colors.textPrimary },
 });

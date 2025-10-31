@@ -1,13 +1,16 @@
 import { Stack } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Header from "../components/Header";
 import colors from "../styles/colors";
 import typography from "../styles/typography";
+
 
 export default function SproutsIntro() {
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: "Introduction to Sprouts App :)", headerShown: true }} />
+      <Header title="Introduction to Sprouts" />
+      <Stack.Screen options={{ headerShown: false }} />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Hey, you!</Text>
         <Text style={styles.body}>Welcome to our brand-new app: Sprouts!
@@ -26,4 +29,7 @@ const styles = StyleSheet.create({
   content: { padding: 20, gap: 10 },
   title: { ...typography.header, fontSize: 26 },
   body: { ...typography.body, color: colors.textPrimary },
+
+
+
 });

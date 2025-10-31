@@ -1,15 +1,18 @@
 import { Stack } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Header from "../components/Header";
 import colors from "../styles/colors";
 import typography from "../styles/typography";
+
 
 export default function BeginnerInfo() {
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: "Beginner's Almanac :)", headerShown: true }} />
+      <Stack.Screen options={{ title: "Beginner's Almanac :)", headerShown: false }} />
+      <Header title="Beginner Information" />
+      
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Beginner information on plant keeping!</Text>
         <Text style={styles.body}>
           Welcome! Before we begin, here are a few pillars to get started:
         </Text>

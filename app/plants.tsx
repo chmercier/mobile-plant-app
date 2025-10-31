@@ -68,7 +68,8 @@ export default function Plants() {
           setCameraOpen(false);
           setNameModalVisible(true);
         }
-      } catch (error) {
+      } 
+      catch (error) {
         console.error("Failed to take picture:", error);
       }
     }
@@ -81,7 +82,17 @@ const fetchPlantData = async (name: string) => {
     const searchResponse = await fetch(
       `https://perenual.com/api/v2/species-list?key=${API_KEY}&q=${encodeURIComponent(name)}`
     );
-    const searchData = await searchResponse.json();
+    const text = await searchResponse.text(); // read raw text
+    let searchData;
+
+    try {
+      searchData = JSON.parse(text);
+    } catch {
+      console.error("Invalid JSON:", text);
+      Alert.alert("Error", "Invalid response from Perenual API. Check your API key or network.");
+      setLoading(false);
+      return null;
+}
 
     if (!searchData.data || searchData.data.length === 0) {
       setLoading(false);

@@ -1,8 +1,8 @@
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { Image, StyleSheet, Text, View, ViewStyle } from "react-native";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
-import { Text, View, StyleSheet, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 interface PlantCardProps {
   title: string;
@@ -11,9 +11,10 @@ interface PlantCardProps {
     type: "water" | "fertilize";
     timeUntilTask: string; // e.g., "1-2w", "3d"
   };
+  style?: ViewStyle
 }
 
-export default function PlantCard({ title, image, nextTask }: PlantCardProps) {
+export default function PlantCard({ title, image, nextTask, style }: PlantCardProps) {
   const renderTaskIcon = (type: string) => {
     switch (type) {
       case "water":
@@ -26,7 +27,7 @@ export default function PlantCard({ title, image, nextTask }: PlantCardProps) {
   };
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, style]}>
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <View style={styles.nextTaskContainer}>
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
+    alignItems: "center",
   },
   title: {
     position: "absolute",
