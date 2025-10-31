@@ -131,7 +131,6 @@ export default function Home() {
           )}
         </View>
 
-        {/* Upcoming Tasks */}
         <View style={[styles.banner, { backgroundColor: colors.surface }]}>
           <Text style={[styles.bannerTitle, { color: colors.textOnDark }]}>Upcoming Tasks</Text>
           {upcoming.length > 0 ? (

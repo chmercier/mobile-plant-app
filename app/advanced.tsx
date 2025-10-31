@@ -19,9 +19,7 @@ export default function AdvancedTips() {
           guess. Instead of “bright” or “low” light, think in lux or PPFD. A bright windowsill can
           be 20–40k lux at midday, while a meter back from that window may drop under 2k. Many
           foliage houseplants thrive around 5–10k lux for several hours; high-light species (herbs,
-          succulents) prefer more. If daylight isn’t enough, supplement with full-spectrum LEDs and
-          aim for a consistent daily light integral (DLI): ~10–15 mol/m²/day for light-hungry
-          plants and ~4–8 mol/m²/day for shade-tolerant ones. Even without instruments, you can
+          succulents) prefer more. Even without instruments, you can
           improve outcomes by keeping leaves dust-free, rotating pots weekly for even growth, and
           using sheer curtains to soften harsh afternoon sun.
         </Text>
@@ -55,7 +53,7 @@ export default function AdvancedTips() {
         <Text style={styles.title}>Plant Nutrition</Text>
 
         <Text style={styles.body}>
-          Nutrition is best thought of as a steady drip, not feast-and-famine. A balanced fertilizer
+          Nutrition is best thought of as a steady drip, not feast and famine. A balanced fertilizer
           at 1/4–1/2 strength with every other watering works for most ornamentals; reduce in low
           light or winter. Advanced growers track electrical conductivity (EC) or parts per million
           (ppm) to avoid overfeeding—especially for semi-hydro systems like LECA. If you don’t want
@@ -67,7 +65,7 @@ export default function AdvancedTips() {
         <Text style={styles.title}>Pests</Text>
 
         <Text style={styles.body}>
-          Integrated pest management (IPM) beats emergency sprays. Inspect weekly—flip leaves, check
+          Integrated pest management (IPM) beats emergency sprays. Inspect weekly, flip leaves, check
           nodes, and isolate any plant with stippling, honeydew, or fuzz. A gentle, layered approach
           works: rinse leaves, wipe with diluted alcohol for mealybugs, then apply a mild
           insecticidal soap or horticultural oil, repeating on the egg cycle (every 5–7 days) until
@@ -85,7 +83,7 @@ export default function AdvancedTips() {
           leggy, increase light rather than relying on constant cutting. Propagation keeps
           collections healthy and fun: take node cuttings with at least one node and leaf, root in
           water or a sterile perlite/coir mix with bright, indirect light, and transition gently to
-          soil once roots are robust. Label cuttings with date and parent—small records prevent big
+          soil once roots are robust. Label cuttings with date and parent,small records prevent big
           mysteries later.
         </Text>
         <Text style={styles.title}>Plant Technology</Text>
@@ -94,7 +92,7 @@ export default function AdvancedTips() {
           Finally, build gentle automation and habits. A smart plug can run a humidifier on a
           schedule; a clip fan can keep air moving near dense foliage. Place sensors where leaves
           actually live, not on a distant shelf. Keep a simple log of watering, pruning, repotting,
-          and pest checks—patterns emerge that explain successes and setbacks. Create microclimates:
+          and pest checks, patterns emerge that explain successes and setbacks. Create microclimates:
           high-light plants near the brightest window with reflective surfaces, humidity-loving
           plants grouped together on trays, and tough, low-light species deeper in the room. Whether
           you’re a beginner or advanced, the throughline is the same: measure what you can, observe
@@ -105,7 +103,7 @@ export default function AdvancedTips() {
         <Text style={styles.body}>
         </Text>
         <Text style={styles.body}>
-            We know this is a lot to take in, don't be alarmed. You don't need to master absolutely everything in this section. BUT! - mastering even a few of these advanced techniques will significantly enhance your plant-keeping skills/knowledge and lead to healthier, happier plants.
+            We know this is a lot to take in, don't be alarmed. You don't need to master absolutely everything in this section. Mastering even a few of these advanced techniques will significantly enhance your plant-keeping knowledge and lead to healthier, happier plants.
             Take your time and enjoy the journey!
 
         </Text>

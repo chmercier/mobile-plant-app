@@ -79,7 +79,7 @@ const fetchPlantData = async (name: string) => {
   try {
     setLoading(true);
 
-    const searchResponse = await fetch(
+    const searchResponse = await fetch( //idk if i should add real API key here? 
       `https://perenual.com/api/v2/species-list?key=${API_KEY}&q=${encodeURIComponent(name)}`
     );
     const text = await searchResponse.text(); // read raw text
@@ -89,7 +89,7 @@ const fetchPlantData = async (name: string) => {
       searchData = JSON.parse(text);
     } catch {
       console.error("Invalid JSON:", text);
-      Alert.alert("Error", "Invalid response from Perenual API.");
+      Alert.alert("Invalid response from Perenual API.");
       setLoading(false);
       return null;
 }
@@ -103,7 +103,7 @@ const fetchPlantData = async (name: string) => {
     const plantId = searchData.data[0].id;
 
     const detailsResponse = await fetch(
-      `https://perenual.com/api/v2/species/details/${plantId}?key=${API_KEY}`
+      `https://perenual.com/api/v2/species/details/${plantId}?key=${API_KEY}` // Add statically here?
     );
     const detailsData = await detailsResponse.json();
     setLoading(false);
@@ -182,7 +182,6 @@ const fetchPlantData = async (name: string) => {
         </TouchableOpacity>
       </View>
 
-      {/* Camera Modal */}
       <Modal visible={cameraOpen} animationType="slide">
         <CameraView style={styles.camera} ref={cameraRef} facing="back" />
         <View style={styles.cameraButtons}>
@@ -198,14 +197,13 @@ const fetchPlantData = async (name: string) => {
         </View>
       </Modal>
 
-      {/* Name Input Modal */}
       <Modal visible={nameModalVisible} transparent animationType="slide">
         <View style={styles.nameModal}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Name your plant</Text>
             <TextInput
               style={styles.input}
-              placeholder="e.g., Aloe Vera"
+              placeholder="e.g., Plant Name"
               value={plantName}
               onChangeText={setPlantName}
             />
