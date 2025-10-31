@@ -19,14 +19,14 @@ export default function PlantsDetails() {
       parsedPlant = JSON.parse(paramValue);
     }
   } catch (e) {
-    console.warn("Error parsing plant param:", e);
+    console.warn("Error????:", e);
   }
 
   if (!parsedPlant) {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>
-          Could not load plant details. Please go back and try again.
+          Cannot load plant
         </Text>
       </View>
     );
@@ -42,15 +42,12 @@ export default function PlantsDetails() {
         </Text>
       <Text style={styles.title}>{parsedPlant.name}</Text>
 
-
-      {/* User photo */}
       <Image
         source={{ uri: parsedPlant.uri }}
         style={styles.mainImage}
         resizeMode="cover"
       />
 
-      {/* API reference image */}
       {parsedPlant.referenceImage && (
         <Image
           source={{ uri: parsedPlant.referenceImage }}
@@ -60,10 +57,10 @@ export default function PlantsDetails() {
       )}
 
       <View style={styles.infoBox}>
-        <Text style={styles.label}>💧 Watering:</Text>
+        <Text style={styles.label}>Watering:</Text>
         <Text style={styles.value}>{parsedPlant.watering || "Unknown"}</Text>
 
-        <Text style={styles.label}>☀️ Sunlight:</Text>
+        <Text style={styles.label}>Sunlight:</Text>
         <Text style={styles.value}>{sunlightValue}</Text>
       </View>
     </ScrollView>
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   mainImage: {
-    width: width * 0.92, // leaves border on sides
+    width: width * 0.91, // leaves border
     height: height * 0.55,
     borderRadius: 15,
     alignSelf: "center",

@@ -22,7 +22,7 @@ import colors from "../styles/colors";
 import typography from "../styles/typography";
 
 export type Plant = {
-  uri: string;              // user photo
+  uri: string;    // user photo
   name: string;             // common name
   watering?: string;
   sunlight?: string[];
@@ -89,14 +89,14 @@ const fetchPlantData = async (name: string) => {
       searchData = JSON.parse(text);
     } catch {
       console.error("Invalid JSON:", text);
-      Alert.alert("Error", "Invalid response from Perenual API. Check your API key or network.");
+      Alert.alert("Error", "Invalid response from Perenual API.");
       setLoading(false);
       return null;
 }
 
     if (!searchData.data || searchData.data.length === 0) {
       setLoading(false);
-      Alert.alert("No data found", "Couldn't find this plant in Perenual.");
+      Alert.alert("Couldn't find this plant in Perenual.");
       return null;
     }
 
@@ -108,22 +108,23 @@ const fetchPlantData = async (name: string) => {
     const detailsData = await detailsResponse.json();
     setLoading(false);
 
-    return {
+    return{
       watering: detailsData.watering ?? "Unknown",
       sunlight: detailsData.sunlight ?? ["Unknown"],
       referenceImage: detailsData.default_image?.medium_url ?? null,
     };
-  } catch (err) {
-    console.error("Error fetching plant data:", err);
+  } 
+  catch (err){
+    console.error("Failed to fetch plant data.", err);
     setLoading(false);
-    Alert.alert("Error", "Failed to fetch plant data.");
+    Alert.alert("Failed to fetch plant data.");
     return null;
   }
 };
 
 
 
-  const savePlant = async () => {
+  const savePlant = async () =>{
     if (photo && plantName.trim()) {
       const details = await fetchPlantData(plantName.trim());
       const newPlant: Plant = {
